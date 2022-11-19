@@ -1,3 +1,4 @@
+
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
@@ -23,22 +24,21 @@
 import { defineComponent } from 'vue';
 import { IonInput, IonPage, IonContent, createAnimation } from '@ionic/vue';
 import { ref } from 'vue';
-// import ExploreContainer from '@/components/ExploreContainer.vue';
 
 export default defineComponent({
   name: 'Tab1Page',
   components: {IonContent, IonPage, IonInput },
   methods: {
     sendInput: async function() {
-      // alert(this.imageUrl)
+      let url = "defaultURL";
       this.loading = true;
-      let response = await fetch("http://code.binary141.com:6969/" + this.size + "/" + encodeURIComponent(this.input), {
+      let response = await fetch(url + this.size + "/" + encodeURIComponent(this.input), {
         method: 'GET',
         headers: {},
       })
       let data = await response.json()
       this.imageUrl = data["data"];
-      this.loading = false; 
+      this.loading = false;
     }
   },
   data(){
@@ -48,12 +48,11 @@ export default defineComponent({
       loading:false,
       size: 1,
       loadingText: "Loading"
-      // elementRef: ref(),
     }
   },
   mounted(){
-    
-    setInterval(async () => { 
+
+    setInterval(async () => {
        if(this.loadingText.length>9){
           this.loadingText = "Loading"
        } else {

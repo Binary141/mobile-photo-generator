@@ -17,8 +17,8 @@ This repo makes use of Dockerfiles to create docker containers, make note of the
 git clone https://github.com/kcpetersen111/mobile-photo-generator.git
 git switch docker
 cd backend
-docker build -t mobileImageGenerator-backend .
-docker run --gpus all -dp 6969:6969 -v /opt/stableDiffusion:/opt/stableDiffusion mobileImageGenerator-backend
+docker build -t mobile-image-generator-backend .
+docker run --gpus all -dp 6969:6969 -v /opt/stableDiffusion:/opt/stableDiffusion mobile-image-generator-backend
 ```
 
 ### Front-end
@@ -26,14 +26,14 @@ docker run --gpus all -dp 6969:6969 -v /opt/stableDiffusion:/opt/stableDiffusion
 git clone https://github.com/kcpetersen111/mobile-photo-generator.git
 git switch docker
 cd frontend
-docker build -t mobileImageGenerator-frontend .
+docker build -t mobile-image-generator-frontend .
 docker run -dp 8080:8080 test-front
 ```
 
 ---
 Inside of the Dockerfile for the back-end there are the 2 lines:
 ```
-ENV remoteImageURL="http://coder.binary141.com/pics"
+ENV remoteImageURL="https://coder.binary141.com/pics"
 ENV imageSaveLocation="/opt/stableDiffusion"
 ```
 These are made use in the python files, and are injected as environment variables.
@@ -44,3 +44,12 @@ This declares where the images are saved to as a PNG file on the disk. This was 
 ### `remoteImageURL`
 This is used to formulate the full URL that the front-end uses to grab the images from. Apache2 was used as a way to be able to view the images from the front-end, so the url pointed to the domain that hosted these images
 
+---
+Inside of the Dockerfile for the front-end there is this line:
+```
+ENV imageURL="https://codes.binary141.com/"
+```
+These are made use in the Tab\*.js files. These are inserted into the actual files using sed to find and replace them into the file
+
+### `imageSaveLocation`
+This is the URL where the server is listening to send back a list of all the image locations to display

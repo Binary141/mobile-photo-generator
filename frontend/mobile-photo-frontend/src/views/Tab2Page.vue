@@ -1,23 +1,3 @@
-<!--- <template>
-   <ion-page>
-     <ion-header>
-       <ion-toolbar>
-         <ion-title>Gallery</ion-title>
-       </ion-toolbar>
-     </ion-header>
-     <ion-content :fullscreen="true">
-       <ion-header collapse="condense">
-         <ion-toolbar>
-           <ion-title size="large">Gallery</ion-title>
-         </ion-toolbar>
-       </ion-header>
-
-       <ExploreContainer name="Image Gallery" />
-     </ion-content>
-   </ion-page>
- </template> --->
-
-
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
@@ -43,14 +23,15 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { IonPage, IonContent } from '@ionic/vue';
-// import ExploreContainer from '@/components/ExploreContainer.vue';
 
 export default defineComponent({
   name: 'Tab2Page',
   components: { IonContent, IonPage },
   mounted: async function(){
       console.log("This was autoloaded!");
-      let response = await fetch("http://code.binary141.com:6969/ListImages/", {
+      let url = "defaultURL"
+      // "http://code.binary141.com:6969/ListImages/"
+      let response = await fetch("https://codes.binary141.com/ListImages", {
           method: "GET",
           headers: {},
       })
@@ -58,12 +39,6 @@ export default defineComponent({
       let data = await response.json()
           this.imageLength = data["images"].split(",").length
           this.imageArray = data["images"].split(",")
-      // .then(function (response) {
-      //   response.json().then( function (data) {
-      //       this.imageLength = data["images"].split(",").length
-      //       console.log("Data: ", this.imageLength);
-      //   });
-      // });
   },
   methods: {
     getImages: function() {
